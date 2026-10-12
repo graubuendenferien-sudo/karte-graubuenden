@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Alles auf einen Blick | Graubünden Ferien</title>
+<title>Alle Regionen Graubündens | Graubünden Ferien</title>
 <style>
   /* Markenschriften von graubuenden.ch (lizenziert) */
   @font-face {
@@ -602,8 +602,13 @@
   .map-marker .marker-hit { fill: transparent !important; stroke: none !important; }
 
   /* Hover (Desktop) und aktive Region einfärben, auf allen Bildschirmgrössen */
-  .actual-map .actual-region:hover,
-  .actual-map .actual-region.is-active {
+  /* Hover zeigt nur an, dass die Region klickbar ist (heller); gewählt wird per Klick */
+  .actual-map .actual-region:hover {
+    fill: rgba(121, 119, 95, .08) !important;
+    fill-opacity: 1 !important;
+  }
+  .actual-map .actual-region.is-active,
+  .actual-map .actual-region.is-active:hover {
     fill: rgba(121, 119, 95, .18) !important;
     fill-opacity: 1 !important;
   }
@@ -649,6 +654,26 @@
   *:focus-visible { outline-color: transparent !important; }
   .actual-map .region:focus,
   .actual-map .region:focus-visible { stroke: var(--granit) !important; stroke-width: 2.2 !important; }
+  /* Tooltip mit Regionsnamen beim Hovern (nur Geräte mit Maus) */
+  .map-tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    padding: 6px 10px;
+    background: var(--grf-black);
+    color: #FFFFFF;
+    font-family: var(--font-circular);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .12s ease;
+  }
+  .map-tooltip.is-visible { opacity: 1; }
+  @media (hover: none) { .map-tooltip { display: none; } }
 </style>
 </head>
 <body>
@@ -787,8 +812,7 @@
   regionPaths.forEach(path => {
     const regionIndex = regions.findIndex(region => region.mapIndex === Number(path.dataset.index));
     if (regionIndex < 0) return;
-    // Hover-Auswahl nur mit Maus; auf Touch würde sonst schon das Scrollen über die Karte die Region wechseln.
-    path.addEventListener("pointerenter", event => { if (event.pointerType !== "touch") chooseRegion(regionIndex); });
+    // Region wechselt erst per Klick/Tipp (kein Wechsel beim Hovern).
     path.addEventListener("focus", () => chooseRegion(regionIndex));
     path.addEventListener("click", () => chooseRegion(regionIndex));
     path.addEventListener("keydown", event => {
@@ -810,6 +834,39 @@
     const text = marker.querySelector("text");
     if (text && regionIndex >= 0) text.textContent = String(regionIndex + 1);
   });
+  // Tooltip mit Regionsnamen beim Hovern (Desktop)
+  (() => {
+    const frame = document.querySelector(".map-frame");
+    if (!frame) return;
+    const tip = document.createElement("div");
+    tip.className = "map-tooltip";
+    tip.setAttribute("aria-hidden", "true");
+    frame.appendChild(tip);
+    const place = event => {
+      const rect = frame.getBoundingClientRect();
+      let x = event.clientX - rect.left + 14;
+      let y = event.clientY - rect.top - tip.offsetHeight - 10;
+      if (x + tip.offsetWidth > rect.width) x = event.clientX - rect.left - tip.offsetWidth - 14;
+      if (y < 0) y = event.clientY - rect.top + 18;
+      tip.style.transform = "translate(" + Math.round(x) + "px, " + Math.round(y) + "px)";
+    };
+    regionPaths.forEach(path => {
+      const regionIndex = regions.findIndex(region => region.mapIndex === Number(path.dataset.index));
+      if (regionIndex < 0) return;
+      path.addEventListener("pointerenter", event => {
+        if (event.pointerType === "touch") return;
+        tip.textContent = regions[regionIndex].name;
+        place(event);
+        tip.classList.add("is-visible");
+      });
+      path.addEventListener("pointermove", event => {
+        if (event.pointerType === "touch") return;
+        place(event);
+      });
+      path.addEventListener("pointerleave", () => tip.classList.remove("is-visible"));
+    });
+  })();
+
   chooseRegion(0);
 
   // Intrinsic-height sender for a cross-origin wrapper/CMS iframe chain.
