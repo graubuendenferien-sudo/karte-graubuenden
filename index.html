@@ -548,7 +548,7 @@
         <section class="copy selection-column" aria-label="Ausgewählte Ferienregion">
           <div class="selection-top"><span id="region-count" class="region-number" aria-label="Destination 1 von 17">1</span><span id="region-title" aria-live="polite">Chur</span></div>
           <p id="region-description" class="description" aria-live="polite">In der Bündner Hauptstadt treffen historische Gassen und Kultur auf kurze Wege hinaus in die Bergwelt.</p>
-          <a id="region-link" class="destination-link" href="https://www.graubuenden.ch/de/graubuenden/regionen" target="_blank" rel="noopener noreferrer">Region entdecken <span aria-hidden="true">↗</span></a>
+          <a id="region-link" class="destination-link" href="https://www.graubuenden.ch/de/graubuenden/regionen/chur-rheintal" target="_blank" rel="noopener noreferrer">Region entdecken <span aria-hidden="true">↗</span></a>
         </section>
 
       <section class="map-panel" aria-label="Interaktive Karte der Ferienregionen">
@@ -606,23 +606,23 @@
 <script>
   // Kurztexte sind redaktionelle Vorschläge; ohne geprüfte Einzelzielseiten verlinken alle auf die Regionenübersicht.
   const regions = [
-    { mapIndex: 3, name: "Chur", description: "In der Bündner Hauptstadt treffen historische Gassen und Kultur auf kurze Wege hinaus in die Bergwelt." },
-    { mapIndex: 9, name: "Heidiland", description: "Zwischen Weinbergen, Seen und Bergen bietet Heidiland abwechslungsreiche Entdeckungen in einer vielseitigen Landschaft." },
-    { mapIndex: 10, name: "Prättigau", description: "Das Prättigau verbindet ruhige Dörfer mit eindrücklichen Bergkulissen und aussichtsreichen Höhenwegen." },
-    { mapIndex: 4, name: "Davos Klosters", description: "Weite Berglandschaften und ein vielseitiges Angebot machen Davos Klosters zum Erlebnisraum für Sommer und Winter." },
-    { mapIndex: 0, name: "Arosa Lenzerheide", description: "Zwischen Bergseen und Gipfeln verbindet die Region alpine Natur mit vielfältigen Erlebnissen zu jeder Jahreszeit." },
-    { mapIndex: 1, name: "Bergün Filisur", description: "Historische Dörfer, eindrückliche Bahnlandschaften und aussichtsreiche Wege prägen diese alpine Ferienregion." },
-    { mapIndex: 13, name: "Val Surses Savognin Bivio", description: "Rund um Savognin und Bivio trifft weite Berglandschaft auf rauen Charme und vielfältige Naturerlebnisse." },
-    { mapIndex: 15, name: "Viamala", description: "Tiefe Schluchten, historische Wege und Dörfer machen die Region Viamala zu einem eindrücklichen Ausgangspunkt für Entdeckungen." },
-    { mapIndex: 8, name: "Flims Laax Falera", description: "Rheinschlucht, Bergseen und vielfältige Outdoor-Erlebnisse prägen die Region rund um Flims, Laax und Falera." },
-    { mapIndex: 12, name: "Surselva", description: "Weite Täler, romanische Kultur und ursprüngliche Berglandschaften laden zum Wandern und Entdecken ein." },
-    { mapIndex: 5, name: "Disentis Sedrun", description: "Rund um die Rheinquelle laden weite Täler und alpine Wege dazu ein, die Bergwelt zu entdecken." },
-    { mapIndex: 16, name: "Vals", description: "Das abgelegene Bergtal begeistert mit seiner eindrücklichen Gebirgslandschaft, dem Dorf Vals und stillen Naturerlebnissen." },
-    { mapIndex: 11, name: "San Bernardino Mesolcina Calanca", description: "Südliche Täler, Passlandschaften und stille Bergdörfer machen diese Region zu einem besonderen Teil Graubündens." },
-    { mapIndex: 2, name: "Bregaglia Maloja", description: "Südalpine Täler, markante Granitberge und eine eigenständige Kultur geben dem Bergell seinen besonderen Charakter." },
-    { mapIndex: 14, name: "Valposchiavo", description: "Im südlichen Tal treffen alpine Landschaften, italienischsprachige Kultur und besondere Bahn-Erlebnisse aufeinander." },
-    { mapIndex: 7, name: "Engadin St. Moritz", description: "Seen, klare Bergluft und weite Hochgebirgslandschaften verbinden sich mit Kultur und alpinem Lebensgefühl." },
-    { mapIndex: 6, name: "Engadin Samnaun Val Müstair", description: "Drei Täler, drei Charaktere: Kultur im Unterengadin, Ruhe im Val Müstair und Weite in Samnaun." }
+    { mapIndex: 3, name: "Chur", description: "In der Bündner Hauptstadt treffen historische Gassen und Kultur auf kurze Wege hinaus in die Bergwelt.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/chur-rheintal" },
+    { mapIndex: 9, name: "Heidiland", description: "Zwischen Weinbergen, Seen und Bergen bietet Heidiland abwechslungsreiche Entdeckungen in einer vielseitigen Landschaft.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/heidiland" },
+    { mapIndex: 10, name: "Prättigau", description: "Das Prättigau verbindet ruhige Dörfer mit eindrücklichen Bergkulissen und aussichtsreichen Höhenwegen.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/praettigau" },
+    { mapIndex: 4, name: "Davos Klosters", description: "Weite Berglandschaften und ein vielseitiges Angebot machen Davos Klosters zum Erlebnisraum für Sommer und Winter.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/davos-klosters" },
+    { mapIndex: 0, name: "Arosa Lenzerheide", description: "Zwischen Bergseen und Gipfeln verbindet die Region alpine Natur mit vielfältigen Erlebnissen zu jeder Jahreszeit.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/arosa-lenzerheide" },
+    { mapIndex: 1, name: "Bergün Filisur", description: "Historische Dörfer, eindrückliche Bahnlandschaften und aussichtsreiche Wege prägen diese alpine Ferienregion.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/berguen-filisur" },
+    { mapIndex: 13, name: "Val Surses Savognin Bivio", description: "Rund um Savognin und Bivio trifft weite Berglandschaft auf rauen Charme und vielfältige Naturerlebnisse.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/val-surses-savognin-bivio" },
+    { mapIndex: 15, name: "Viamala", description: "Tiefe Schluchten, historische Wege und Dörfer machen die Region Viamala zu einem eindrücklichen Ausgangspunkt für Entdeckungen.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/viamala" },
+    { mapIndex: 8, name: "Flims Laax Falera", description: "Rheinschlucht, Bergseen und vielfältige Outdoor-Erlebnisse prägen die Region rund um Flims, Laax und Falera.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/flims-laax-falera" },
+    { mapIndex: 12, name: "Surselva", description: "Weite Täler, romanische Kultur und ursprüngliche Berglandschaften laden zum Wandern und Entdecken ein.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/surselva" },
+    { mapIndex: 5, name: "Disentis Sedrun", description: "Rund um die Rheinquelle laden weite Täler und alpine Wege dazu ein, die Bergwelt zu entdecken.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/disentis-sedrun" },
+    { mapIndex: 16, name: "Vals", description: "Das abgelegene Bergtal begeistert mit seiner eindrücklichen Gebirgslandschaft, dem Dorf Vals und stillen Naturerlebnissen.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/vals" },
+    { mapIndex: 11, name: "San Bernardino Mesolcina Calanca", description: "Südliche Täler, Passlandschaften und stille Bergdörfer machen diese Region zu einem besonderen Teil Graubündens.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/san-bernardino-mesolcina-calanca" },
+    { mapIndex: 2, name: "Bregaglia Maloja", description: "Südalpine Täler, markante Granitberge und eine eigenständige Kultur geben dem Bergell seinen besonderen Charakter.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/bregaglia-engadin" },
+    { mapIndex: 14, name: "Valposchiavo", description: "Im südlichen Tal treffen alpine Landschaften, italienischsprachige Kultur und besondere Bahn-Erlebnisse aufeinander.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/valposchiavo" },
+    { mapIndex: 7, name: "Engadin St. Moritz", description: "Seen, klare Bergluft und weite Hochgebirgslandschaften verbinden sich mit Kultur und alpinem Lebensgefühl.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/engadin-st-moritz" },
+    { mapIndex: 6, name: "Engadin Samnaun Val Müstair", description: "Drei Täler, drei Charaktere: Kultur im Unterengadin, Ruhe im Val Müstair und Weite in Samnaun.", url: "https://www.graubuenden.ch/de/graubuenden/regionen/engadin-samnaun-val-muestair" }
   ];
   const overviewUrl = "https://www.graubuenden.ch/de/graubuenden/regionen";
   const regionPaths = Array.from(document.querySelectorAll(".actual-region"));
