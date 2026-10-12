@@ -643,6 +643,12 @@
     .region-progress span { display: block; width: 0; height: 100%; background: var(--granit); transition: width .25s ease; }
 
   }
+  /* Fokus-Markierung beim Tabben durchsichtig (Elemente bleiben per Tastatur erreichbar) */
+  html { -webkit-tap-highlight-color: transparent; }
+  *:focus,
+  *:focus-visible { outline-color: transparent !important; }
+  .actual-map .region:focus,
+  .actual-map .region:focus-visible { stroke: var(--granit) !important; stroke-width: 2.2 !important; }
 </style>
 </head>
 <body>
