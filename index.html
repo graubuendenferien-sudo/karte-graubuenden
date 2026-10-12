@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Ferienregionen Graubünden – interaktive Karte</title>
+<title>Alle Regionen Graubündens | Graubünden Ferien</title>
 <style>
   :root {
     --pine: #172b27;
@@ -407,9 +407,14 @@
   .map-heading strong { color: var(--ink); font-size: 13px; letter-spacing: .96px; }
   .map-heading span { color: var(--ink-soft); font-size: 13px; }
   .region { stroke: var(--granit-75); stroke-width: 1.4; }
-  .actual-region { fill: transparent !important; }
-  .actual-region:hover { fill: rgba(121,119,95,.12) !important; stroke: var(--granit); }
-  .region.is-active { fill: rgba(121,119,95,.18) !important; stroke: var(--granit); stroke-width: 2.2; }
+  .actual-map .actual-region { fill: none !important; fill-opacity: 0 !important; pointer-events: all; }
+  .actual-map .actual-region:hover { stroke: var(--granit); }
+  .actual-map .actual-region.is-active {
+    fill: rgba(121,119,95,.2) !important;
+    fill-opacity: 1 !important;
+    stroke: var(--granit);
+    stroke-width: 2.2;
+  }
   .region:focus-visible { stroke: var(--granat); stroke-width: 2.5; }
   .map-outline { stroke: var(--granit); stroke-width: 2; }
   .map-caption { color: var(--ink-soft); font-size: 13px; line-height: 18px; }
@@ -438,7 +443,8 @@
     line-height: 1.24;
     text-transform: none;
   }
-  .copy > h1 {
+  .copy > h1,
+  .copy .page-title-row > h1 {
     max-width: 760px;
     margin: 2px 0 0;
     color: var(--ink);
@@ -451,7 +457,7 @@
   .copy > .intro { margin-top: 32px; }
   @media (max-width: 760px) {
     .copy > .kicker { font-size: clamp(32px, 9vw, 40px); }
-    .copy > h1 { font-size: clamp(30px, 8vw, 36px); }
+    .copy > h1, .copy .page-title-row > h1 { font-size: clamp(30px, 8vw, 36px); }
     .copy > .intro { margin-top: 24px; }
   }
   /* Full-width title area and destination ordering */
@@ -460,14 +466,25 @@
     margin: 0;
     padding: 16px 0 40px;
   }
-  .page-intro > .kicker,
-  .page-intro > h1 { max-width: none; }
+  .page-intro > .kicker { max-width: none; }
+  .page-title-row { position: relative; }
+  .page-title-row > h1 {
+    max-width: none;
+    margin: 2px 0 0;
+    padding-right: 180px;
+  }
+  .page-title-row > .region-nav {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-left: 0;
+  }
   .layout {
     grid-template-columns: minmax(300px, .86fr) minmax(440px, 1.14fr);
     padding: 0 0 40px;
   }
   .selection-column { max-width: 470px; }
-  .selection-top { margin-bottom: 18px; }
+  .selection-top { margin-bottom: 18px; gap: 8px; flex-wrap: wrap; }
   .selection-top #region-title {
     color: var(--ink);
     font-family: var(--font-circular);
@@ -477,7 +494,42 @@
     line-height: 1.2;
     text-transform: none;
   }
+  .region-nav {
+    display: flex;
+    flex: 0 0 auto;
+    margin-left: auto;
+    background: #F2F1ED;
+  }
+  .region-nav-button {
+    display: grid;
+    place-items: center;
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--granit);
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  .region-nav-button svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .region-nav-button:hover:not(:disabled) { background: #D8D7D1; color: var(--ink); }
+  .region-nav-button:active:not(:disabled) { background: #C9C8C1; }
+  .region-nav-button:disabled { color: #D3D2CC; cursor: default; }
+  .region-nav-button:focus-visible { outline: 2px solid var(--granat); outline-offset: 2px; z-index: 1; }
   @media (max-width: 760px) {
+    .page-title-row { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+    .page-title-row > h1 { flex: 1 1 100%; padding-right: 0; }
+    .page-title-row > .region-nav { position: static; margin-left: auto; }
     .page-intro { padding: 0 0 28px; }
     .layout { padding-bottom: 28px; }
     .selection-column { max-width: none; }
@@ -488,8 +540,8 @@
   <div class="page">
     <main>
       <section class="copy page-intro" aria-labelledby="page-title">
-        <p class="kicker">Graubünden – ganz vielfältig.</p>
-        <h1 id="page-title">Die Regionen Graubündens</h1>
+        <p class="kicker">Vielfältig unterwegs.</p>
+        <div class="page-title-row"><h1 id="page-title">Alle Regionen Graubündens</h1><div class="region-nav" role="group" aria-label="Destinationen durchblättern"><button id="previous-region" class="region-nav-button" type="button" aria-label="Vorherige Destination"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button><button id="next-region" class="region-nav-button" type="button" aria-label="Nächste Destination"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button></div></div>
       </section>
 
       <div class="layout">
@@ -575,13 +627,47 @@
   const overviewUrl = "https://www.graubuenden.ch/de/graubuenden/regionen";
   const regionPaths = Array.from(document.querySelectorAll(".actual-region"));
   const markers = Array.from(document.querySelectorAll(".actual-marker"));
+  // Exclude the Vals perimeter from Surselva's selected fill so the destinations stay distinct.
+  (() => {
+    const map = document.querySelector(".actual-map");
+    const defs = map && map.querySelector("defs");
+    const surselva = map && map.querySelector('.actual-region[data-index="12"]');
+    const vals = map && map.querySelector('.actual-region[data-index="16"]');
+    if (!defs || !surselva || !vals) return;
+    const svgNS = "http://www.w3.org/2000/svg";
+    const mask = document.createElementNS(svgNS, "mask");
+    mask.setAttribute("id", "surselva-excludes-vals");
+    mask.setAttribute("maskUnits", "userSpaceOnUse");
+    mask.setAttribute("maskContentUnits", "userSpaceOnUse");
+    mask.setAttribute("x", "0");
+    mask.setAttribute("y", "0");
+    mask.setAttribute("width", "760");
+    mask.setAttribute("height", "545");
+    const base = document.createElementNS(svgNS, "rect");
+    base.setAttribute("x", "0");
+    base.setAttribute("y", "0");
+    base.setAttribute("width", "760");
+    base.setAttribute("height", "545");
+    base.setAttribute("fill", "#fff");
+    const valsCutout = document.createElementNS(svgNS, "path");
+    valsCutout.setAttribute("d", vals.getAttribute("d"));
+    valsCutout.setAttribute("fill", "#000");
+    valsCutout.setAttribute("fill-rule", "evenodd");
+    mask.append(base, valsCutout);
+    defs.appendChild(mask);
+    surselva.setAttribute("mask", "url(#surselva-excludes-vals)");
+  })();
   const title = document.getElementById("region-title");
   const description = document.getElementById("region-description");
   const counter = document.getElementById("region-count");
   const link = document.getElementById("region-link");
+  const previousButton = document.getElementById("previous-region");
+  const nextButton = document.getElementById("next-region");
+  let activeRegionIndex = 0;
   function chooseRegion(index) {
     const safeIndex = (index + regions.length) % regions.length;
     const region = regions[safeIndex];
+    activeRegionIndex = safeIndex;
     title.textContent = region.name;
     description.textContent = region.description;
     counter.textContent = String(safeIndex + 1);
@@ -594,6 +680,9 @@
     });
     markers.forEach(marker => marker.classList.toggle("is-active", Number(marker.dataset.marker) === region.mapIndex));
   }
+
+  previousButton.addEventListener("click", () => chooseRegion(activeRegionIndex - 1));
+  nextButton.addEventListener("click", () => chooseRegion(activeRegionIndex + 1));
 
   regionPaths.forEach(path => {
     const regionIndex = regions.findIndex(region => region.mapIndex === Number(path.dataset.index));
