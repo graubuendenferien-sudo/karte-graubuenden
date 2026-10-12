@@ -568,6 +568,13 @@
   .region-step:focus-visible { outline: 2px solid var(--granat); outline-offset: 2px; }
   .map-marker .marker-hit { fill: transparent !important; stroke: none !important; }
 
+  /* Hover (Desktop) und aktive Region einfärben, auf allen Bildschirmgrössen */
+  .actual-map .actual-region:hover,
+  .actual-map .actual-region.is-active {
+    fill: rgba(121, 119, 95, .18) !important;
+    fill-opacity: 1 !important;
+  }
+
   @media (max-width: 760px) {
     /* Pfeile aus der Titelzeile entfernen, sie sitzen jetzt in der Box */
     .page-title-row > .region-nav { display: none; }
@@ -602,27 +609,6 @@
     .region-progress { display: block; height: 3px; margin-top: 16px; background: var(--rule); }
     .region-progress span { display: block; width: 0; height: 100%; background: var(--granit); transition: width .25s ease; }
 
-    /* Aktive Region auf Touch sichtbar machen */
-    .actual-map .actual-region.is-active {
-      fill: rgba(121, 119, 95, .18) !important;
-      fill-opacity: 1 !important;
-    }
-
-    /* Nummern auf der Karte einblenden und antippbar machen */
-    .actual-marker { display: block; pointer-events: auto; cursor: pointer; }
-    .actual-marker .marker-inner { transform: scale(2); transition: transform .15s ease; }
-    /* Nur Zahlen, ohne Kreise; weisser Rand um die Ziffern hält sie über Grenzlinien lesbar */
-    .actual-marker .marker-inner circle { fill: none; stroke: none; }
-    .actual-marker .marker-inner text {
-      fill: var(--ink-soft);
-      font-weight: 700;
-      stroke: #FFFFFF;
-      stroke-width: 3px;
-      stroke-linejoin: round;
-      paint-order: stroke;
-    }
-    .actual-marker.is-active .marker-inner { transform: scale(2.6); }
-    .actual-marker.is-active .marker-inner text { fill: var(--ink); stroke: #ECEBE7; }
   }
 </style>
 </head>
@@ -763,7 +749,7 @@
     const regionIndex = regions.findIndex(region => region.mapIndex === Number(path.dataset.index));
     if (regionIndex < 0) return;
     // Hover-Auswahl nur mit Maus; auf Touch würde sonst schon das Scrollen über die Karte die Region wechseln.
-    path.addEventListener("pointerenter", event => { if (event.pointerType === "mouse") chooseRegion(regionIndex); });
+    path.addEventListener("pointerenter", event => { if (event.pointerType !== "touch") chooseRegion(regionIndex); });
     path.addEventListener("focus", () => chooseRegion(regionIndex));
     path.addEventListener("click", () => chooseRegion(regionIndex));
     path.addEventListener("keydown", event => {
